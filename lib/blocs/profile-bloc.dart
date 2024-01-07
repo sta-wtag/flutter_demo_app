@@ -26,7 +26,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         await referenceImageToUpload.putFile(File(pickedFile!.path));
 
         var imageUrl = await referenceImageToUpload.getDownloadURL();
-        emit(ImageUploadedState(imageUrl));
+        emit(ProfileLoadedState(imageUrl));
       } catch (error) {}
     });
 
