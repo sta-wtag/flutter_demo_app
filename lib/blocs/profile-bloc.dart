@@ -26,20 +26,20 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         await referenceImageToUpload.putFile(File(pickedFile!.path));
 
         var imageUrl = await referenceImageToUpload.getDownloadURL();
+        emit(ImageUploadedState(imageUrl));
+      } catch (error) {}
+    });
 
+    on<UpdateProfile>((event, emit) async {
+      try {
         FirebaseFirestore.instance
             .collection('users')
             .doc('MeRV8I8NhowxGfa5yqfg')
             .update({
-          "image_url": imageUrl,
+          "image_url": event.image_url,
         }).then((_) {
           print("success!");
         });
-      } catch (error) {}
-
-      try {
-        final user = await _homeRepo.fetchUserImage();
-        emit(ImageUploadedState(user));
       } catch (error) {}
     });
   }

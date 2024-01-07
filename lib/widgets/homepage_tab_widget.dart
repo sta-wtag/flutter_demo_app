@@ -28,7 +28,7 @@ class _TabContentState extends State<TabContent> {
               children: [
                 GestureDetector(
                     onTap: () {
-                      Navigator.pushReplacementNamed(context, "/profile");
+                      Navigator.pushNamed(context, "/profile");
                     },
                     child: CircleAvatar(
                       radius: 18,
