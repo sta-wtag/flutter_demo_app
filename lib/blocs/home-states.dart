@@ -15,19 +15,21 @@ class HomeLoadedState extends HomeState {
 
   List? myLibraries;
   String tab;
+
   @override
   List<Object?> get props => [myLibraries, tab];
 }
 
 class TabChangedState extends HomeState {
   TabChangedState(this.tab, this.playlists, this.topFive, this.recommended,
-      this.myLibraries);
+      this.myLibraries, this.user);
   List<String> myLibraries;
   List? recommended;
   List? playlists;
   List? topFive;
   String tab;
+  dynamic user;
   @override
   List<Object?> get props =>
-      [tab, playlists, topFive, recommended, myLibraries];
+      [tab, playlists, topFive, recommended, myLibraries, user];
 }

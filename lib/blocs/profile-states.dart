@@ -6,8 +6,10 @@ import '../data/data.dart';
 abstract class ProfileState extends Equatable {}
 
 class ProfileLoadedState extends ProfileState {
+  ProfileLoadedState(this.user);
+  dynamic user;
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [user];
 }
 
 class ProfileLoadingState extends ProfileState {
@@ -16,8 +18,9 @@ class ProfileLoadingState extends ProfileState {
 }
 
 class ImageUploadedState extends ProfileState {
-  ImageUploadedState();
+  ImageUploadedState(this.user);
+  dynamic user;
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [user];
 }

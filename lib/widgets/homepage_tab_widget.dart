@@ -30,10 +30,10 @@ class _TabContentState extends State<TabContent> {
                     onTap: () {
                       Navigator.pushReplacementNamed(context, "/profile");
                     },
-                    child: const CircleAvatar(
+                    child: CircleAvatar(
                       radius: 18,
                       backgroundImage: NetworkImage(
-                        'https://images.unsplash.com/photo-1490730141103-6cac27aaab94?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                        state.user,
                       ),
                     )),
                 const SizedBox(

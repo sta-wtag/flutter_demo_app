@@ -8,6 +8,7 @@ import '../models/profile_model.dart';
 import '../models/recommended_model.dart';
 import '../models/playlist_model.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class HomeDataProvider {
   Client client = Client();
@@ -199,5 +200,17 @@ class HomeDataProvider {
     } catch (error) {
       throw Exception(error);
     }
+  }
+
+  Future<dynamic> fetchUserImage() async {
+    var data;
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc('MeRV8I8NhowxGfa5yqfg')
+        .get()
+        .then((DocumentSnapshot doc) {
+      data = doc.data() as Map<String, dynamic>;
+    });
+    return data['image_url'];
   }
 }

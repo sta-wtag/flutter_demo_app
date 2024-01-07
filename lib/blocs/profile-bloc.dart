@@ -1,25 +1,45 @@
+import 'dart:io';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import './profile-events.dart';
 import './profile-states.dart';
 import '../repos/homeRepo.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   final HomeDataProvider _homeRepo;
   ProfileBloc(this._homeRepo) : super(ProfileLoadingState()) {
     on<LoadProfilePage>((event, emit) async {
-      emit(ProfileLoadedState());
+      final user = await _homeRepo.fetchUserImage();
+      emit(ProfileLoadedState(user));
     });
     on<UploadImage>((event, emit) async {
       final picker = ImagePicker();
-      final pickedFiles = await picker.pickMultiImage();
-      if (pickedFiles.length > 0) {
-        pickedFiles.forEach((file) {
-          // state.images.add(File(file.path));
-        });
-      }
+      final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+      Reference referenceRoot = FirebaseStorage.instance.ref();
+      Reference referenceDirImages = referenceRoot.child('images');
+      Reference referenceImageToUpload = referenceDirImages.child('name');
+
       try {
-        emit(ImageUploadedState());
+        await referenceImageToUpload.putFile(File(pickedFile!.path));
+
+        var imageUrl = await referenceImageToUpload.getDownloadURL();
+
+        FirebaseFirestore.instance
+            .collection('users')
+            .doc('MeRV8I8NhowxGfa5yqfg')
+            .update({
+          "image_url": imageUrl,
+        }).then((_) {
+          print("success!");
+        });
+      } catch (error) {}
+
+      try {
+        final user = await _homeRepo.fetchUserImage();
+        emit(ImageUploadedState(user));
       } catch (error) {}
     });
   }

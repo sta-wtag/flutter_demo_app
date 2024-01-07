@@ -10,6 +10,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<LoadHomePage>((event, emit) async {
       emit(HomeLoadingState());
       try {
+        final user = await _homeRepo.fetchUserImage();
         final playlist = await _homeRepo.fetchPlaylists();
         final topFive = await _homeRepo.getMyTopFiveTrack();
         final recommended = await _homeRepo.getTopFiveRecommandedSongs();
@@ -20,13 +21,15 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
             playlist.tracks?.items != null ? playlist.tracks?.items : [],
             topFive.items,
             recommended.tracks,
-            library));
+            library,
+            user));
       } catch (error) {}
     });
 
     on<ChangeTabHomePage>((event, emit) async {
       emit(HomeLoadingState());
       try {
+        final user = await _homeRepo.fetchUserImage();
         final playlist = await _homeRepo.fetchPlaylists();
         final topFive = await _homeRepo.getMyTopFiveTrack();
         final recommended = await _homeRepo.getTopFiveRecommandedSongs();
@@ -37,7 +40,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
             playlist.tracks?.items != null ? playlist.tracks?.items : [],
             topFive.items,
             recommended.tracks,
-            library));
+            library,
+            user));
       } catch (error) {}
     });
   }
