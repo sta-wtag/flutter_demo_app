@@ -47,6 +47,7 @@ dependencies:
   spotify_sdk: ^2.3.1
   flutter_secure_storage: ^9.0.0
   flutter_spinkit: ^5.2.0
+  carousel_slider: ^4.2.1
 
 dev_dependencies:
   flutter_test:

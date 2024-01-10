@@ -7,8 +7,17 @@ import 'package:flutter_demo_application/blocs/home-states.dart';
 import 'package:flutter_demo_application/repos/homeRepo.dart';
 import 'package:flutter_demo_application/widgets/homepage_tab_widget.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  double _currentSliderValue = 20;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,13 +67,15 @@ class HomeScreen extends StatelessWidget {
                               crossAxisSpacing: 5.0,
                               children: state.myLibraries.map((item) {
                                 return ListTile(
-                                  contentPadding: EdgeInsets.all(0.0),
+                                  visualDensity:
+                                      VisualDensity(horizontal: 0, vertical: 2),
+                                  contentPadding: EdgeInsets.all(0),
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(5)),
                                   tileColor: Color.fromARGB(255, 62, 61, 61),
                                   leading: Image.network(
-                                    'https://images.unsplash.com/photo-1524419986249-348e8fa6ad4a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-                                    fit: BoxFit.fill,
+                                    'https://w0.peakpx.com/wallpaper/993/758/HD-wallpaper-imagine-dragons-radioactive-rock-time-music-band-design-its-imagine-dragons-indie-good.jpg',
+                                    fit: BoxFit.cover,
                                     // height: 50,
                                     // width: 60,
                                   ),
@@ -235,9 +246,9 @@ class HomeScreen extends StatelessWidget {
                 } else if (state.tab == 'Music') {
                   return Padding(
                       padding: const EdgeInsets.only(
-                          left: 10.0, right: 10.0, top: 30.0),
+                          left: 10.0, right: 10.0, top: 40.0),
                       child: Container(
-                          child: Column(
+                          child: ListView(
                         children: [
                           TabContent(
                             onTapButton: (tab) {
@@ -245,10 +256,201 @@ class HomeScreen extends StatelessWidget {
                                   .add(ChangeTabHomePage(tab));
                             },
                           ),
+                          GridView.count(
+                              shrinkWrap: true,
+                              crossAxisCount: 2,
+                              childAspectRatio: 3.0,
+                              mainAxisSpacing: 5.0,
+                              crossAxisSpacing: 5.0,
+                              children: state.myLibraries.map((item) {
+                                return ListTile(
+                                  visualDensity: const VisualDensity(
+                                      horizontal: -1, vertical: 2),
+                                  contentPadding: const EdgeInsets.all(0),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(5)),
+                                  tileColor:
+                                      const Color.fromARGB(255, 62, 61, 61),
+                                  leading: SizedBox(
+                                      width: 60,
+                                      height: 100,
+                                      child: Image.network(
+                                        'https://wallpapers.com/images/high/coldplay-ghost-stories-dove-album-art-zjre473efzckm2hz.webp',
+                                        fit: BoxFit.cover,
+                                      )),
+                                  title: Text(
+                                    item,
+                                    style: const TextStyle(
+                                        color: Colors.white, fontSize: 10),
+                                  ),
+                                );
+                              }).toList()),
                           SizedBox(
-                            height: 300,
+                            height: 20,
                           ),
-                          const Center(child: Text('Wrapped tab clicked'))
+                          Card(
+                            color: Colors.amberAccent,
+                            elevation: 10.0,
+                            child: Container(
+                                width: 405,
+                                height: 500,
+                                decoration: const BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(12)),
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Color.fromARGB(255, 142, 142, 140),
+                                      Color.fromARGB(255, 68, 67, 67),
+                                      Color.fromARGB(255, 34, 34, 34),
+                                    ],
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                  ),
+                                ),
+                                child: Stack(
+                                  alignment: Alignment.center,
+                                  children: [
+                                    Positioned(
+                                        top: 10,
+                                        right: 10,
+                                        child: SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width -
+                                              50,
+                                          child: const Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                'Pinkpantheres, Ice spice',
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.w200,
+                                                    fontSize: 12,
+                                                    color: Colors.white),
+                                              ),
+                                              Icon(Icons.volume_off_sharp)
+                                            ],
+                                          ),
+                                        )),
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        SizedBox(
+                                          height: 50,
+                                        ),
+                                        CarouselSlider(
+                                          options: CarouselOptions(
+                                            autoPlay: true,
+                                            height: 200.0,
+                                            aspectRatio: 0.8,
+                                            viewportFraction: 1,
+                                          ),
+                                          items: [1, 2, 3, 4, 5].map((i) {
+                                            return Builder(
+                                              builder: (BuildContext context) {
+                                                return Container(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width -
+                                                      200,
+                                                  margin: EdgeInsets.symmetric(
+                                                      horizontal: 10.0),
+                                                  decoration:
+                                                      const BoxDecoration(
+                                                          image:
+                                                              DecorationImage(
+                                                    image: NetworkImage(
+                                                      'https://wallpapers.com/images/high/coldplay-ghost-stories-album-seals-h1fkjrm9yzb6gdff.webp',
+                                                    ),
+                                                    fit: BoxFit.cover,
+                                                  )),
+                                                );
+                                              },
+                                            );
+                                          }).toList(),
+                                        ),
+                                        SizedBox(
+                                          height: 50,
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(left: 20),
+                                          child: ListTile(
+                                            visualDensity: const VisualDensity(
+                                                horizontal: -1, vertical: 2),
+                                            contentPadding:
+                                                const EdgeInsets.all(0),
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(5)),
+                                            tileColor: const Color.fromARGB(
+                                                255, 62, 61, 61),
+                                            leading: SizedBox(
+                                                width: 60,
+                                                height: 100,
+                                                child: Image.network(
+                                                  'https://wallpapers.com/images/high/coldplay-ghost-stories-dove-album-art-zjre473efzckm2hz.webp',
+                                                  fit: BoxFit.cover,
+                                                )),
+                                            title: Text(
+                                              'Imagine Dragons',
+                                              style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 20),
+                                            ),
+                                            subtitle: Text(
+                                              'Believer',
+                                              style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 10),
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    Positioned(
+                                        bottom: 10,
+                                        child: SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width -
+                                              50,
+                                          child: const Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Icon(
+                                                      Icons.add_circle_outline),
+                                                  SizedBox(
+                                                    width: 20,
+                                                  ),
+                                                  Icon(Icons.more_horiz),
+                                                ],
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Text(
+                                                    '90 songs',
+                                                    style:
+                                                        TextStyle(fontSize: 10),
+                                                  ),
+                                                  SizedBox(
+                                                    width: 20,
+                                                  ),
+                                                  Icon(Icons.play_circle)
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        )),
+                                  ],
+                                )),
+                          ),
                         ],
                       )));
                 } else if (state.tab == 'Wrapped') {
