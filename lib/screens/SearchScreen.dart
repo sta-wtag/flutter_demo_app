@@ -141,99 +141,102 @@ class _SearchScreenState extends State<SearchScreen> {
                                     color: Colors.amberAccent,
                                     elevation: 10.0,
                                     child: Container(
-                                      width: 105,
-                                      height: 150,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(8)),
-                                        image: DecorationImage(
-                                          image: NetworkImage(
-                                            'https://thumbs.dreamstime.com/z/random-picture-228881822.jpg?ct=jpeg',
+                                        width: 105,
+                                        height: 150,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(8)),
+                                          image: DecorationImage(
+                                            image: NetworkImage(
+                                              'https://w0.peakpx.com/wallpaper/233/923/HD-wallpaper-imagine-dragons-borntobeyours-danreynolds-dark-group-imaginedragons.jpg',
+                                            ),
+                                            fit: BoxFit.fill,
+                                            alignment: Alignment.topCenter,
                                           ),
-                                          fit: BoxFit.cover,
-                                          alignment: Alignment.topCenter,
                                         ),
-                                      ),
-                                      child: ListTile(
-                                        title: Text(
-                                          'test',
-                                          style: TextStyle(
-                                              color: Colors.amberAccent),
-                                        ),
-                                        subtitle: Text(
-                                          'test',
-                                          style: TextStyle(
-                                              color: Colors.amberAccent),
-                                        ),
-                                      ),
-                                    ),
+                                        child: Stack(
+                                          children: [
+                                            Positioned(
+                                                bottom: 10,
+                                                left: 10,
+                                                child: Text(
+                                                  '#dance pop',
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.white),
+                                                )),
+                                          ],
+                                        )),
                                   ),
                                   Card(
                                     color: Colors.amberAccent,
                                     elevation: 10.0,
                                     child: Container(
-                                      width: 105,
-                                      height: 150,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(8)),
-                                        image: DecorationImage(
-                                          image: NetworkImage(
-                                            'https://thumbs.dreamstime.com/z/random-picture-228881822.jpg?ct=jpeg',
+                                        width: 105,
+                                        height: 150,
+                                        decoration: const BoxDecoration(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(8)),
+                                          image: DecorationImage(
+                                            image: NetworkImage(
+                                              'https://w0.peakpx.com/wallpaper/940/338/HD-wallpaper-imagine-dragons-dragons-imagine-imagine-dragons-thunder-thunder-thunder-dragons-thunder-imagine-thunder-imagine-dragons.jpg',
+                                            ),
+                                            fit: BoxFit.cover,
+                                            alignment: Alignment.topCenter,
                                           ),
-                                          fit: BoxFit.cover,
-                                          alignment: Alignment.topCenter,
                                         ),
-                                      ),
-                                      child: ListTile(
-                                        title: Text(
-                                          'test',
-                                          style: TextStyle(
-                                              color: Colors.amberAccent),
-                                        ),
-                                        subtitle: Text(
-                                          'test',
-                                          style: TextStyle(
-                                              color: Colors.amberAccent),
-                                        ),
-                                      ),
-                                    ),
+                                        child: const Stack(
+                                          children: [
+                                            Positioned(
+                                                bottom: 10,
+                                                left: 10,
+                                                child: Text(
+                                                  '#western',
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.white),
+                                                )),
+                                          ],
+                                        )),
                                   ),
                                   Card(
                                     color: Colors.amberAccent,
                                     elevation: 10.0,
                                     child: Container(
-                                      width: 105,
-                                      height: 150,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(8)),
-                                        image: DecorationImage(
-                                          image: NetworkImage(
-                                            'https://thumbs.dreamstime.com/z/random-picture-228881822.jpg?ct=jpeg',
+                                        width: 105,
+                                        height: 150,
+                                        decoration: const BoxDecoration(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(8)),
+                                          image: DecorationImage(
+                                            image: NetworkImage(
+                                              'https://w0.peakpx.com/wallpaper/910/484/HD-wallpaper-imagine-dragons-band-concert-danreynolds-demons-group-imaginedragons-music-radioactive-thunder.jpg',
+                                            ),
+                                            fit: BoxFit.cover,
+                                            alignment: Alignment.topCenter,
                                           ),
-                                          fit: BoxFit.cover,
-                                          alignment: Alignment.topCenter,
                                         ),
-                                      ),
-                                      child: ListTile(
-                                        title: Text(
-                                          'test',
-                                          style: TextStyle(
-                                              color: Colors.amberAccent),
-                                        ),
-                                        subtitle: Text(
-                                          'test',
-                                          style: TextStyle(
-                                              color: Colors.amberAccent),
-                                        ),
-                                      ),
-                                    ),
+                                        child: const Stack(
+                                          children: [
+                                            Positioned(
+                                                bottom: 10,
+                                                left: 10,
+                                                child: Text(
+                                                  '#motivation',
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.white),
+                                                )),
+                                          ],
+                                        )),
                                   ),
                                 ],
                               ),
                               SizedBox(height: 15.0),
-                              const Text('Explore your genres'),
+                              const Text('Browse all'),
                               SizedBox(height: 15.0),
                               GridView.count(
                                   shrinkWrap: true,
