@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyDNdzVrKLYAlvpTjjomklHo7-DhOMkhA5Y</string>
+	<string>AIzaSyCzvNPkktdXLk8cnjVmHhd1G4zMTc-hAG0</string>
 	<key>GCM_SENDER_ID</key>
-	<string>149030382525</string>
+	<string>481272104091</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.example.flutterDemoApplication</string>
 	<key>PROJECT_ID</key>
-	<string>fluttertestapp382</string>
+	<string>flutterdemospotify</string>
 	<key>STORAGE_BUCKET</key>
-	<string>fluttertestapp382.appspot.com</string>
+	<string>flutterdemospotify.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:149030382525:ios:fe20779eb659a530f940d4</string>
+	<string>1:481272104091:ios:850efdbd6439517b45723e</string>
 </dict>
 </plist>

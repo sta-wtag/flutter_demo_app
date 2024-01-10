@@ -59,10 +59,10 @@ class _ProfileScreenState extends State<ProfileScreen>
                                       state.user,
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 10,
                                   ),
-                                  Column(
+                                  const Column(
                                     children: [
                                       Text(
                                         'Sadia Tabassum',
@@ -91,7 +91,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                                   )
                                 ],
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 20,
                               ),
                               Row(

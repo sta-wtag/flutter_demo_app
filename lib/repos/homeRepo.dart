@@ -9,10 +9,13 @@ import '../models/recommended_model.dart';
 import '../models/playlist_model.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:spotify_sdk/spotify_sdk.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class HomeDataProvider {
   Client client = Client();
-  final _apiKey = 'c93ded4914a8a06152d221044163aafe';
+  // final _apiKey = 'c93ded4914a8a06152d221044163aafe';
+  final _apiKey = "3ff8ab43b1734e94b8223757afb4a99c";
 
   // Future<List<String>> fetchPlayList() async {
   //   try {
@@ -50,7 +53,11 @@ class HomeDataProvider {
   }
 
   Future<Track> getMyTopFiveTrack() async {
-    var token = dotenv.env['TOKEN'];
+    final storage = new FlutterSecureStorage();
+
+// Read value
+    // var token = await storage.read(key: 'jwt');
+    var token = await dotenv.env['TOKEN'];
 
     try {
       final response = await client.get(
@@ -85,7 +92,11 @@ class HomeDataProvider {
       '4PMmwowVLOajPdiKnrU1vK'
     ];
 
-    var token = dotenv.env['TOKEN'];
+    final storage = new FlutterSecureStorage();
+
+// Read value
+    // var token = await storage.read(key: 'jwt');
+    var token = await dotenv.env['TOKEN'];
     try {
       final response = await client.get(
           Uri.parse(
@@ -95,7 +106,6 @@ class HomeDataProvider {
             'Accept': 'application/json',
             'Authorization': 'Bearer $token',
           });
-
       if (response.statusCode == 200) {
         var temp = jsonDecode(response.body);
         return Recommended.fromJson(temp);
@@ -122,8 +132,11 @@ class HomeDataProvider {
     ];
     var profile = await fetchUser();
 
-    var token = dotenv.env['TOKEN'];
+    final storage = new FlutterSecureStorage();
 
+// Read value
+    // var token = await storage.read(key: 'jwt');
+    var token = await dotenv.env['TOKEN'];
     try {
       const params = {
         "name": "My recommendation playlist",
@@ -159,8 +172,11 @@ class HomeDataProvider {
   }
 
   Future<Profile> fetchUser() async {
-    var token = dotenv.env['TOKEN'];
+    final storage = new FlutterSecureStorage();
 
+// Read value
+    // var token = await storage.read(key: 'jwt');
+    var token = await dotenv.env['TOKEN'];
     try {
       final response = await client
           .get(Uri.parse("${dotenv.env['BASE_URL']}/v1/me"), headers: {
@@ -180,7 +196,11 @@ class HomeDataProvider {
   }
 
   Future<Genre> fetchGenres() async {
-    var token = dotenv.env['TOKEN'];
+    final storage = new FlutterSecureStorage();
+
+// Read value
+    // var token = await storage.read(key: 'jwt');
+    var token = await dotenv.env['TOKEN'];
     try {
       final response = await client.get(
           Uri.parse(
@@ -212,5 +232,34 @@ class HomeDataProvider {
       data = doc.data() as Map<String, dynamic>;
     });
     return data['image_url'];
+  }
+
+  Future<dynamic> refreshToken() async {
+    var accessToken = await SpotifySdk.getAccessToken(
+        clientId: "3ff8ab43b1734e94b8223757afb4a99c",
+        redirectUrl: "myapp://",
+        scope:
+            "app-remote-control,user-library-read,user-modify-playback-state,playlist-read-private");
+    final storage = new FlutterSecureStorage();
+
+// Write value
+    await storage.write(key: 'jwt', value: accessToken);
+    return accessToken;
+    // var token = dotenv.env['TOKEN'];
+    // var params = {
+    //   "grant_type": 'refresh_token',
+    //   "refresh_token": token,
+    //   "client_id": '3ff8ab43b1734e94b8223757afb4a99c'
+    // };
+    // try {
+    //   final response =
+    //       await client.post(Uri.parse("https://accounts.spotify.com/api/token"),
+    //           headers: {
+    //             'Content-Type': 'application/x-www-form-urlencoded',
+    //           },
+    //           body: params);
+    //   print(response.body);
+    //   return response;
+    // } catch (error) {}
   }
 }

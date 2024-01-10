@@ -10,12 +10,13 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<LoadHomePage>((event, emit) async {
       emit(HomeLoadingState());
       try {
+        // await _homeRepo.refreshToken();
         final user = await _homeRepo.fetchUserImage();
         final playlist = await _homeRepo.fetchPlaylists();
         final topFive = await _homeRepo.getMyTopFiveTrack();
         final recommended = await _homeRepo.getTopFiveRecommandedSongs();
         final library = await _homeRepo.fetchLibrary();
-        emit(HomeLoadedState(library, 'All'));
+        // emit(HomeLoadedState(library, 'All'));
         emit(TabChangedState(
             'All',
             playlist.tracks?.items != null ? playlist.tracks?.items : [],

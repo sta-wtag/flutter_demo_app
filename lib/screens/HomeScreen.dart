@@ -6,6 +6,7 @@ import 'package:flutter_demo_application/blocs/home-events.dart';
 import 'package:flutter_demo_application/blocs/home-states.dart';
 import 'package:flutter_demo_application/repos/homeRepo.dart';
 import 'package:flutter_demo_application/widgets/homepage_tab_widget.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -23,10 +24,13 @@ class HomeScreen extends StatelessWidget {
             builder: (context, state) {
               if (state is HomeLoadingState) {
                 return const Center(
-                  child: CircularProgressIndicator(
-                    color: Color.fromARGB(255, 123, 207, 112),
-                  ),
-                );
+                    // child: CircularProgressIndicator(
+                    //   color: Color.fromARGB(255, 123, 207, 112),
+                    // ),
+                    child: SpinKitFadingCube(
+                  color: Color.fromARGB(255, 123, 207, 112),
+                  size: 50.0,
+                ));
               } else if (state is HomeLoadedState) {
                 return TabContent(
                   onTapButton: (tab) {
@@ -60,7 +64,7 @@ class HomeScreen extends StatelessWidget {
                                   tileColor: Color.fromARGB(255, 62, 61, 61),
                                   leading: Image.network(
                                     'https://images.unsplash.com/photo-1524419986249-348e8fa6ad4a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-                                    fit: BoxFit.cover,
+                                    fit: BoxFit.fill,
                                     // height: 50,
                                     // width: 60,
                                   ),
@@ -99,8 +103,8 @@ class HomeScreen extends StatelessWidget {
                                         BorderRadius.all(Radius.circular(8)),
                                     image: DecorationImage(
                                       image: NetworkImage(
-                                        state.topFive?[index + 1]?.album
-                                            .images[0].url,
+                                        state.topFive?[index]?.album.images[0]
+                                            .url,
                                       ),
                                       fit: BoxFit.cover,
                                       alignment: Alignment.topCenter,
