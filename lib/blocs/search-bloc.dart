@@ -10,8 +10,9 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       emit(SearchLoadingState());
 
       try {
+        final user = await _homeRepo.fetchUserImage();
         final genres = await _homeRepo.fetchGenres();
-        emit(SeachPageLoadedState(genres.genres));
+        emit(SeachPageLoadedState(genres.genres, user));
       } catch (error) {
         print(error);
       }

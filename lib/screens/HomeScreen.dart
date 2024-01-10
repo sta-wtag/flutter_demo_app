@@ -235,7 +235,7 @@ class HomeScreen extends StatelessWidget {
                 } else if (state.tab == 'Music') {
                   return Padding(
                       padding: const EdgeInsets.only(
-                          left: 10.0, right: 10.0, top: 20.0),
+                          left: 10.0, right: 10.0, top: 30.0),
                       child: Container(
                           child: Column(
                         children: [
@@ -245,13 +245,16 @@ class HomeScreen extends StatelessWidget {
                                   .add(ChangeTabHomePage(tab));
                             },
                           ),
+                          SizedBox(
+                            height: 300,
+                          ),
                           const Center(child: Text('Wrapped tab clicked'))
                         ],
                       )));
                 } else if (state.tab == 'Wrapped') {
                   return Padding(
                       padding: const EdgeInsets.only(
-                          left: 10.0, right: 10.0, top: 20.0),
+                          left: 10.0, right: 10.0, top: 30.0),
                       child: Container(
                           child: Column(
                         children: [
@@ -260,6 +263,9 @@ class HomeScreen extends StatelessWidget {
                               BlocProvider.of<HomeBloc>(context)
                                   .add(ChangeTabHomePage(tab));
                             },
+                          ),
+                          SizedBox(
+                            height: 300,
                           ),
                           const Center(child: Text('Wrapped tab clicked'))
                         ],

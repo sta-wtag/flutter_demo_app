@@ -11,9 +11,10 @@ class SearchLoadingState extends SearchState {
 }
 
 class SeachPageLoadedState extends SearchState {
-  SeachPageLoadedState(this.genres);
+  SeachPageLoadedState(this.genres, this.user);
 
   List<String>? genres;
+  dynamic user;
   @override
-  List<Object?> get props => [genres];
+  List<Object?> get props => [genres, user];
 }
