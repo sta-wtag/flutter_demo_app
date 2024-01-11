@@ -62,7 +62,7 @@ class HomeDataProvider {
     try {
       final response = await client.get(
           Uri.parse(
-              '${dotenv.env['BASE_URL']}/v1/me/top/tracks?time_range=long_term&limit=5'),
+              '${dotenv.env['BASE_URL']}/v1/me/top/tracks?time_range=short_term&limit=5'),
           headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',

@@ -5,6 +5,7 @@ import 'package:flutter_demo_application/blocs/home-bloc.dart';
 import 'package:flutter_demo_application/blocs/home-events.dart';
 import 'package:flutter_demo_application/blocs/home-states.dart';
 import 'package:flutter_demo_application/repos/homeRepo.dart';
+import 'package:flutter_demo_application/widgets/bottom_navbar.dart';
 import 'package:flutter_demo_application/widgets/homepage_tab_widget.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -74,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       borderRadius: BorderRadius.circular(5)),
                                   tileColor: Color.fromARGB(255, 62, 61, 61),
                                   leading: Image.network(
-                                    'https://w0.peakpx.com/wallpaper/993/758/HD-wallpaper-imagine-dragons-radioactive-rock-time-music-band-design-its-imagine-dragons-indie-good.jpg',
+                                    'https://wallpapers.com/images/high/imagine-dragons-2015-tour-poster-mjra28nakm8bz6v8.webp',
                                     fit: BoxFit.cover,
                                     // height: 50,
                                     // width: 60,
@@ -246,7 +247,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 } else if (state.tab == 'Music') {
                   return Padding(
                       padding: const EdgeInsets.only(
-                          left: 10.0, right: 10.0, top: 40.0),
+                          left: 10.0, right: 10.0, top: 20.0),
                       child: Container(
                           child: ListView(
                         children: [
@@ -357,7 +358,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           .size
                                                           .width -
                                                       200,
-                                                  margin: EdgeInsets.symmetric(
+                                                  margin: const EdgeInsets
+                                                      .symmetric(
                                                       horizontal: 10.0),
                                                   decoration:
                                                       const BoxDecoration(
@@ -373,7 +375,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             );
                                           }).toList(),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 50,
                                         ),
                                         Padding(
@@ -395,15 +397,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   'https://wallpapers.com/images/high/coldplay-ghost-stories-dove-album-art-zjre473efzckm2hz.webp',
                                                   fit: BoxFit.cover,
                                                 )),
-                                            title: Text(
+                                            title: const Text(
                                               'Imagine Dragons',
-                                              style: const TextStyle(
+                                              style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 20),
                                             ),
-                                            subtitle: Text(
+                                            subtitle: const Text(
                                               'Believer',
-                                              style: const TextStyle(
+                                              style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 10),
                                             ),
@@ -456,7 +458,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 } else if (state.tab == 'Wrapped') {
                   return Padding(
                       padding: const EdgeInsets.only(
-                          left: 10.0, right: 10.0, top: 30.0),
+                          left: 10.0, right: 10.0, top: 20.0),
                       child: Container(
                           child: Column(
                         children: [
@@ -482,48 +484,9 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: NavigationBar(
-          backgroundColor: Colors.black.withOpacity(0.1),
-          onDestinationSelected: (int index) {
-            if (index == 0) {
-              Navigator.pushReplacementNamed(context, "/home");
-              // Navigator.pushNamed(context, '/home');
-            } else if (index == 1) {
-              Navigator.pushReplacementNamed(context, "/search");
-              // Navigator.pushNamed(context, '/search');
-            }
-          },
-          destinations: const <Widget>[
-            NavigationDestination(
-              selectedIcon: Icon(Icons.home),
-              icon: Icon(
-                Icons.home_outlined,
-                color: Colors.white,
-              ),
-              label: 'Home',
-            ),
-            NavigationDestination(
-              icon: Icon(
-                Icons.search_outlined,
-                color: Color.fromARGB(255, 187, 185, 185),
-              ),
-              label: 'Search',
-            ),
-            NavigationDestination(
-              icon: Icon(
-                Icons.library_music_sharp,
-                color: Color.fromARGB(255, 187, 185, 185),
-              ),
-              label: 'My library',
-            ),
-            NavigationDestination(
-              icon: ImageIcon(
-                AssetImage('lib/assets/images/1217164_spotify_icon.png'),
-                color: Color.fromARGB(255, 187, 185, 185),
-              ),
-              label: 'premium',
-            ),
-          ]),
+      bottomNavigationBar: BottomNavbar(
+        currentIndex: 0,
+      ),
       extendBodyBehindAppBar: true,
       extendBody: true,
     );

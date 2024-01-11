@@ -5,6 +5,8 @@ import 'package:flutter_demo_application/blocs/search-events.dart';
 import 'package:flutter_demo_application/blocs/search-states.dart';
 import 'package:flutter_demo_application/blocs/search-bloc.dart';
 import 'package:flutter_demo_application/repos/homeRepo.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_demo_application/widgets/bottom_navbar.dart';
 import 'dart:math' as math;
 
 class SearchScreen extends StatefulWidget {
@@ -275,54 +277,21 @@ class _SearchScreenState extends State<SearchScreen> {
                           ))),
                 );
               }
-              return Center(
-                  child: Text('test', style: TextStyle(color: Colors.white)));
+              return const Center(
+                  // child: CircularProgressIndicator(
+                  //   color: Color.fromARGB(255, 123, 207, 112),
+                  // ),
+                  child: SpinKitFadingCube(
+                color: Color.fromARGB(255, 123, 207, 112),
+                size: 50.0,
+              ));
             },
           ),
         ),
       ),
-      bottomNavigationBar: NavigationBar(
-          backgroundColor: Colors.black.withOpacity(0.1),
-          onDestinationSelected: (int index) {
-            if (index == 0) {
-              Navigator.pushReplacementNamed(context, "/home");
-              // Navigator.pushNamed(context, '/home');
-            } else if (index == 1) {
-              Navigator.pushReplacementNamed(context, "/search");
-              // Navigator.pushNamed(context, '/search');
-            }
-          },
-          destinations: const <Widget>[
-            NavigationDestination(
-              selectedIcon: Icon(Icons.home),
-              icon: Icon(
-                Icons.home_outlined,
-                color: Colors.white,
-              ),
-              label: 'Home',
-            ),
-            NavigationDestination(
-              icon: Icon(
-                Icons.search_outlined,
-                color: Color.fromARGB(255, 187, 185, 185),
-              ),
-              label: 'Search',
-            ),
-            NavigationDestination(
-              icon: Icon(
-                Icons.library_music_sharp,
-                color: Color.fromARGB(255, 187, 185, 185),
-              ),
-              label: 'My library',
-            ),
-            NavigationDestination(
-              icon: ImageIcon(
-                AssetImage('lib/assets/images/1217164_spotify_icon.png'),
-                color: Color.fromARGB(255, 187, 185, 185),
-              ),
-              label: 'premium',
-            ),
-          ]),
+      bottomNavigationBar: BottomNavbar(
+        currentIndex: 1,
+      ),
       extendBodyBehindAppBar: true,
       extendBody: true,
     );

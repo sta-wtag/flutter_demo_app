@@ -14,6 +14,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         final user = await _homeRepo.fetchUserImage();
         final playlist = await _homeRepo.fetchPlaylists();
         final topFive = await _homeRepo.getMyTopFiveTrack();
+        // topFive.items?.removeAt(1);
         final recommended = await _homeRepo.getTopFiveRecommandedSongs();
         final library = await _homeRepo.fetchLibrary();
         // emit(HomeLoadedState(library, 'All'));
