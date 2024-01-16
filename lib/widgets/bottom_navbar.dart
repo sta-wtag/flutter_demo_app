@@ -20,54 +20,6 @@ class _BottomNavbarState extends State<BottomNavbar> {
 
   @override
   Widget build(BuildContext context) {
-    // return BottomNavigationBar(
-    //   elevation: 0,
-    //   backgroundColor: Colors.black,
-    //   fixedColor: Colors.black,
-    //   items: const <BottomNavigationBarItem>[
-    //     BottomNavigationBarItem(
-    //       activeIcon: Icon(Icons.home),
-    //       icon: Icon(
-    //         Icons.home_outlined,
-    //         color: Colors.white,
-    //       ),
-    //       label: 'Home',
-    //     ),
-    //     BottomNavigationBarItem(
-    //       icon: Icon(
-    //         Icons.search_outlined,
-    //         color: Color.fromARGB(255, 187, 185, 185),
-    //       ),
-    //       label: 'Search',
-    //     ),
-    //     BottomNavigationBarItem(
-    //       icon: Icon(
-    //         Icons.library_music_sharp,
-    //         color: Color.fromARGB(255, 187, 185, 185),
-    //       ),
-    //       label: 'My Library',
-    //     ),
-    //     BottomNavigationBarItem(
-    //       icon: ImageIcon(
-    //         AssetImage('lib/assets/images/1217164_spotify_icon.png'),
-    //         color: Color.fromARGB(255, 187, 185, 185),
-    //       ),
-    //       label: 'premium',
-    //     ),
-    //   ],
-    //   currentIndex: widget.currentIndex,
-    //   // selectedItemColor: Colors.amber[800],
-    //   onTap: (int index) {
-    //     if (index == 0) {
-    //       Navigator.pushReplacementNamed(context, "/home");
-    //       // Navigator.pushNamed(context, '/home');
-    //     } else if (index == 1) {
-    //       Navigator.pushReplacementNamed(context, "/search");
-    //       // Navigator.pushNamed(context, '/search');
-    //     }
-    //   },
-    // );
-
     return NavigationBar(
         backgroundColor: Colors.black.withOpacity(0.1),
         onDestinationSelected: (int index) {
@@ -77,10 +29,13 @@ class _BottomNavbarState extends State<BottomNavbar> {
           } else if (index == 1) {
             Navigator.pushReplacementNamed(context, "/search");
             // Navigator.pushNamed(context, '/search');
+          } else if (index == 2) {
+            Navigator.pushReplacementNamed(context, "/library");
           }
         },
-        indicatorColor: Colors.transparent,
+        indicatorColor: const Color.fromARGB(0, 197, 194, 194),
         selectedIndex: widget.currentIndex,
+        labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
         destinations: const <Widget>[
           NavigationDestination(
             selectedIcon: Icon(

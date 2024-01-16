@@ -219,8 +219,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                         BorderRadius.all(Radius.circular(8)),
                                     image: DecorationImage(
                                       image: NetworkImage(
-                                        state.playlists?[index]?.album.images[0]
-                                            .url,
+                                        state.playlists?[index]?.track.album
+                                            .images[0].url,
                                       ),
                                       fit: BoxFit.cover,
                                       alignment: Alignment.topCenter,
@@ -233,7 +233,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           TextStyle(color: Colors.amberAccent),
                                     ),
                                     subtitle: Text(
-                                      state.playlists?[index].type,
+                                      state.playlists?[index].track.type,
                                       style:
                                           TextStyle(color: Colors.amberAccent),
                                     ),
@@ -460,7 +460,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       padding: const EdgeInsets.only(
                           left: 10.0, right: 10.0, top: 20.0),
                       child: Container(
-                          child: Column(
+                          child: ListView(
                         children: [
                           TabContent(
                             onTapButton: (tab) {
@@ -468,10 +468,202 @@ class _HomeScreenState extends State<HomeScreen> {
                                   .add(ChangeTabHomePage(tab));
                             },
                           ),
+                          GridView.count(
+                              shrinkWrap: true,
+                              crossAxisCount: 2,
+                              childAspectRatio: 3.0,
+                              mainAxisSpacing: 5.0,
+                              crossAxisSpacing: 5.0,
+                              children: state.myLibraries.map((item) {
+                                return ListTile(
+                                  visualDensity: const VisualDensity(
+                                      horizontal: -1, vertical: 2),
+                                  contentPadding: const EdgeInsets.all(0),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(5)),
+                                  tileColor:
+                                      const Color.fromARGB(255, 62, 61, 61),
+                                  leading: SizedBox(
+                                      width: 60,
+                                      height: 100,
+                                      child: Image.network(
+                                        'https://wallpapers.com/images/high/coldplay-ghost-stories-dove-album-art-zjre473efzckm2hz.webp',
+                                        fit: BoxFit.cover,
+                                      )),
+                                  title: Text(
+                                    item,
+                                    style: const TextStyle(
+                                        color: Colors.white, fontSize: 10),
+                                  ),
+                                );
+                              }).toList()),
                           SizedBox(
-                            height: 300,
+                            height: 20,
                           ),
-                          const Center(child: Text('Wrapped tab clicked'))
+                          Card(
+                            color: Colors.amberAccent,
+                            elevation: 10.0,
+                            child: Container(
+                                width: 405,
+                                height: 500,
+                                decoration: const BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(12)),
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Color.fromARGB(255, 142, 142, 140),
+                                      Color.fromARGB(255, 68, 67, 67),
+                                      Color.fromARGB(255, 34, 34, 34),
+                                    ],
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                  ),
+                                ),
+                                child: Stack(
+                                  alignment: Alignment.center,
+                                  children: [
+                                    Positioned(
+                                        top: 10,
+                                        right: 10,
+                                        child: SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width -
+                                              50,
+                                          child: const Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                'Pinkpantheres, Ice spice',
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.w200,
+                                                    fontSize: 12,
+                                                    color: Colors.white),
+                                              ),
+                                              Icon(Icons.volume_off_sharp)
+                                            ],
+                                          ),
+                                        )),
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        SizedBox(
+                                          height: 50,
+                                        ),
+                                        CarouselSlider(
+                                          options: CarouselOptions(
+                                            autoPlay: true,
+                                            height: 200.0,
+                                            aspectRatio: 0.8,
+                                            viewportFraction: 1,
+                                          ),
+                                          items: [1, 2, 3, 4, 5].map((i) {
+                                            return Builder(
+                                              builder: (BuildContext context) {
+                                                return Container(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width -
+                                                      200,
+                                                  margin: const EdgeInsets
+                                                      .symmetric(
+                                                      horizontal: 10.0),
+                                                  decoration:
+                                                      const BoxDecoration(
+                                                          image:
+                                                              DecorationImage(
+                                                    image: NetworkImage(
+                                                      'https://wallpapers.com/images/high/coldplay-ghost-stories-album-seals-h1fkjrm9yzb6gdff.webp',
+                                                    ),
+                                                    fit: BoxFit.cover,
+                                                  )),
+                                                );
+                                              },
+                                            );
+                                          }).toList(),
+                                        ),
+                                        const SizedBox(
+                                          height: 50,
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(left: 20),
+                                          child: ListTile(
+                                            visualDensity: const VisualDensity(
+                                                horizontal: -1, vertical: 2),
+                                            contentPadding:
+                                                const EdgeInsets.all(0),
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(5)),
+                                            tileColor: const Color.fromARGB(
+                                                255, 62, 61, 61),
+                                            leading: SizedBox(
+                                                width: 60,
+                                                height: 100,
+                                                child: Image.network(
+                                                  'https://wallpapers.com/images/high/coldplay-ghost-stories-dove-album-art-zjre473efzckm2hz.webp',
+                                                  fit: BoxFit.cover,
+                                                )),
+                                            title: const Text(
+                                              'Imagine Dragons',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 20),
+                                            ),
+                                            subtitle: const Text(
+                                              'Believer',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 10),
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    Positioned(
+                                        bottom: 10,
+                                        child: SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width -
+                                              50,
+                                          child: const Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Icon(
+                                                      Icons.add_circle_outline),
+                                                  SizedBox(
+                                                    width: 20,
+                                                  ),
+                                                  Icon(Icons.more_horiz),
+                                                ],
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Text(
+                                                    '90 songs',
+                                                    style:
+                                                        TextStyle(fontSize: 10),
+                                                  ),
+                                                  SizedBox(
+                                                    width: 20,
+                                                  ),
+                                                  Icon(Icons.play_circle)
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        )),
+                                  ],
+                                )),
+                          ),
                         ],
                       )));
                 } else {

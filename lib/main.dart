@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo_application/screens/HomeScreen.dart';
+import 'package:flutter_demo_application/screens/LibraryScreen.dart';
 import 'package:flutter_demo_application/screens/ProfileScreen.dart';
 import 'package:flutter_demo_application/screens/SplashScreen.dart';
 import 'package:flutter_demo_application/screens/SearchScreen.dart';
@@ -56,7 +57,8 @@ class MyApp extends StatelessWidget {
       routes: {
         '/home': (context) => HomeScreen(),
         '/search': (context) => SearchScreen(),
-        '/profile': (context) => ProfileScreen()
+        '/profile': (context) => ProfileScreen(),
+        '/library': (context) => LibraryScreen()
       },
       home: SplashScreen(),
     );

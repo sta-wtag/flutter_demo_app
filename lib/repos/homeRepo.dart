@@ -6,6 +6,7 @@ import '../data/data.dart';
 import '../models/track_model.dart';
 import '../models/profile_model.dart';
 import '../models/recommended_model.dart';
+import '../models/test_model.dart';
 import '../models/playlist_model.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -117,7 +118,7 @@ class HomeDataProvider {
     }
   }
 
-  Future<Playlist> fetchPlaylists() async {
+  Future<Playlist2> fetchPlaylists() async {
     const tracksUri = [
       'spotify:track:5UHvVfewZKxwoB6gdhSFtr',
       'spotify:track:3WDIhWoRWVcaHdRwMEHkkS',
@@ -152,6 +153,7 @@ class HomeDataProvider {
             'Authorization': 'Bearer $token',
           },
           body: json.encode(params));
+
       if (res.statusCode == 201) {
         var playlist = Playlist.fromJson(jsonDecode(res.body));
         var response = await client.post(
@@ -162,7 +164,16 @@ class HomeDataProvider {
               'Accept': 'application/json',
               'Authorization': 'Bearer $token',
             });
-        return playlist;
+        var test = await client.get(
+            Uri.parse(
+                "${dotenv.env['BASE_URL']}/v1/playlists/3cEYpjA9oz9GiPac4AsH4n"),
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+              'Authorization': 'Bearer $token',
+            });
+
+        return Playlist2.fromJson(jsonDecode(test.body));
       } else {
         throw Exception('Failed to load post');
       }
