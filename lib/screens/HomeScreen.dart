@@ -286,7 +286,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                 );
                               }).toList()),
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           Card(
@@ -340,7 +340,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 50,
                                         ),
                                         CarouselSlider(
@@ -497,7 +497,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                 );
                               }).toList()),
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           Card(
@@ -551,7 +551,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 50,
                                         ),
                                         CarouselSlider(

@@ -48,7 +48,8 @@ class _SearchScreenState extends State<SearchScreen> {
                   body: NestedScrollView(
                       headerSliverBuilder: (context, innerBoxIsScrolled) => [
                             SliverAppBar(
-                              backgroundColor: Color.fromARGB(255, 18, 18, 18),
+                              backgroundColor:
+                                  const Color.fromARGB(255, 18, 18, 18),
                               pinned: true,
                               floating: true,
                               snap: true,
@@ -66,16 +67,16 @@ class _SearchScreenState extends State<SearchScreen> {
                                           state.user,
                                         ),
                                       )),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 14,
                                   ),
-                                  (Text(
+                                  const Text(
                                     'Search',
                                     style: TextStyle(
                                         fontSize: 20,
                                         fontWeight: FontWeight.w600,
                                         color: Colors.white),
-                                  ))
+                                  )
                                 ],
                               ),
                               bottom: PreferredSize(
@@ -136,7 +137,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           child: ListView(
                             children: [
                               const Text('Explore your genres'),
-                              SizedBox(height: 15.0),
+                              const SizedBox(height: 15.0),
                               Row(
                                 children: [
                                   Card(
@@ -145,7 +146,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                     child: Container(
                                         width: 105,
                                         height: 150,
-                                        decoration: BoxDecoration(
+                                        decoration: const BoxDecoration(
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(8)),
                                           image: DecorationImage(
@@ -156,7 +157,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                             alignment: Alignment.topCenter,
                                           ),
                                         ),
-                                        child: Stack(
+                                        child: const Stack(
                                           children: [
                                             Positioned(
                                                 bottom: 10,
@@ -237,9 +238,9 @@ class _SearchScreenState extends State<SearchScreen> {
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 15.0),
+                              const SizedBox(height: 15.0),
                               const Text('Browse all'),
-                              SizedBox(height: 15.0),
+                              const SizedBox(height: 15.0),
                               GridView.count(
                                   shrinkWrap: true,
                                   crossAxisCount: 2,
@@ -249,7 +250,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                   children: state.genres!.map((item) {
                                     return Container(
                                       decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.all(
+                                        borderRadius: const BorderRadius.all(
                                             Radius.circular(8)),
                                         color: Color(
                                                 (math.Random().nextDouble() *
@@ -267,7 +268,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                       child: ListTile(
                                         title: Text(
                                           item,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               color: Colors.amberAccent),
                                         ),
                                       ),
