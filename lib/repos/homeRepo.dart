@@ -195,6 +195,7 @@ class HomeDataProvider {
         'Accept': 'application/json',
         'Authorization': 'Bearer $token',
       });
+      print(response.body);
       if (response.statusCode == 200) {
         var temp = jsonDecode(response.body);
         return Profile.fromJson(temp);

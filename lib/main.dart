@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo_application/screens/HomeScreen.dart';
 import 'package:flutter_demo_application/screens/LibraryScreen.dart';
+import 'package:flutter_demo_application/screens/PremiumScreen.dart';
 import 'package:flutter_demo_application/screens/ProfileScreen.dart';
 import 'package:flutter_demo_application/screens/SplashScreen.dart';
 import 'package:flutter_demo_application/screens/SearchScreen.dart';
@@ -58,7 +59,8 @@ class MyApp extends StatelessWidget {
         '/home': (context) => HomeScreen(),
         '/search': (context) => SearchScreen(),
         '/profile': (context) => ProfileScreen(),
-        '/library': (context) => LibraryScreen()
+        '/library': (context) => LibraryScreen(),
+        '/premium': (context) => PremiumScreen()
       },
       home: SplashScreen(),
     );

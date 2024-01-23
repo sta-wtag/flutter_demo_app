@@ -31,6 +31,8 @@ class _BottomNavbarState extends State<BottomNavbar> {
             // Navigator.pushNamed(context, '/search');
           } else if (index == 2) {
             Navigator.pushReplacementNamed(context, "/library");
+          } else {
+            Navigator.pushReplacementNamed(context, "/premium");
           }
         },
         indicatorColor: const Color.fromARGB(0, 197, 194, 194),
