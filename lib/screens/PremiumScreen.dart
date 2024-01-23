@@ -44,6 +44,8 @@ class _PremiumScreenState extends State<PremiumScreen>
                     return Builder(
                       builder: (BuildContext context) {
                         return SizedBox(
+                            child: Padding(
+                          padding: EdgeInsets.all(10),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
@@ -58,6 +60,9 @@ class _PremiumScreenState extends State<PremiumScreen>
                                     color: Color.fromARGB(255, 33, 33, 33),
                                   ),
                                   child: Column(children: [
+                                    SizedBox(
+                                      height: 10,
+                                    ),
                                     Text(
                                       'FREE',
                                       style: TextStyle(
@@ -94,6 +99,9 @@ class _PremiumScreenState extends State<PremiumScreen>
                                         bottomRight: Radius.circular(12)),
                                   ),
                                   child: Column(children: [
+                                    SizedBox(
+                                      height: 10,
+                                    ),
                                     Text(
                                       'PREMIUM',
                                       style: TextStyle(
@@ -115,10 +123,45 @@ class _PremiumScreenState extends State<PremiumScreen>
                               )
                             ],
                           ),
-                        );
+                        ));
                       },
                     );
                   }).toList(),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Center(
+                  child: Text(
+                    "You can't upgrade to premium on this app. We know it's not ideal",
+                    style: TextStyle(fontSize: 10),
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 33, 33, 33),
+                    borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                  ),
+                  child: Padding(
+                      padding: EdgeInsets.all(20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Spotofy Free',
+                            style: TextStyle(
+                                fontSize: 16.0, fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            'Current Plan',
+                            style: TextStyle(
+                                fontSize: 14.0, fontWeight: FontWeight.normal),
+                          )
+                        ],
+                      )),
                 )
               ],
             )));
