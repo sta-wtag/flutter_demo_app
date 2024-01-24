@@ -69,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               children: state.myLibraries.map((item) {
                                 return ListTile(
                                   visualDensity:
-                                      VisualDensity(horizontal: 0, vertical: 2),
+                                      VisualDensity(horizontal: 0, vertical: 1),
                                   contentPadding: EdgeInsets.all(0),
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(5)),
