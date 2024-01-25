@@ -4,6 +4,9 @@ import 'package:flutter_demo_application/blocs/profile-bloc.dart';
 import 'package:flutter_demo_application/blocs/profile-events.dart';
 import 'package:flutter_demo_application/blocs/profile-states.dart';
 import 'package:flutter_demo_application/repos/homeRepo.dart';
+import 'package:audioplayers/audioplayers.dart';
+
+final player = AudioPlayer();
 
 class ProfileScreen extends StatefulWidget {
   ProfileScreen({super.key});
@@ -14,13 +17,17 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen>
     with SingleTickerProviderStateMixin {
+  AudioPlayer? _player;
   @override
   void initState() {
     super.initState();
   }
 
   @override
-  void dispose() {}
+  void dispose() {
+    _player?.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -108,7 +115,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                                           .transparent, // Background color
                                       onPrimary: Colors.white, // Text color
                                       shape: RoundedRectangleBorder(
-                                        side: BorderSide(
+                                        side: const BorderSide(
                                             width: 1.0,
                                             color: const Color.fromARGB(
                                                 255, 178, 176, 176)),
@@ -130,9 +137,10 @@ class _ProfileScreenState extends State<ProfileScreen>
                                               mainAxisSize: MainAxisSize.max,
                                               children: <Widget>[
                                                 Container(
-                                                  color: Color.fromARGB(
+                                                  color: const Color.fromARGB(
                                                       255, 45, 44, 44),
-                                                  padding: EdgeInsets.all(10),
+                                                  padding:
+                                                      const EdgeInsets.all(10),
                                                   child: Row(
                                                     mainAxisAlignment:
                                                         MainAxisAlignment
@@ -142,7 +150,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                                                         onPressed: () =>
                                                             Navigator.pop(
                                                                 context2),
-                                                        child: Text(
+                                                        child: const Text(
                                                           'Cancel',
                                                           style: TextStyle(
                                                             color: Colors
@@ -152,16 +160,16 @@ class _ProfileScreenState extends State<ProfileScreen>
                                                           ),
                                                         ),
                                                       ),
-                                                      Text('Edit Profile'),
+                                                      const Text(
+                                                          'Edit Profile'),
                                                       TextButton(
                                                         onPressed: () =>
                                                             Navigator.pop(
                                                                 context2),
-                                                        child: Text(
+                                                        child: const Text(
                                                           'Save',
                                                           style: TextStyle(
-                                                            color: const Color
-                                                                .fromARGB(
+                                                            color: Color.fromARGB(
                                                                 255,
                                                                 158,
                                                                 156,
@@ -216,7 +224,13 @@ class _ProfileScreenState extends State<ProfileScreen>
                                     width: 20.0,
                                   ),
                                   GestureDetector(
-                                    onTap: () {},
+                                    onTap: () {
+                                      print('hello');
+                                      _player?.dispose();
+                                      final player = _player = AudioPlayer();
+                                      player.play(UrlSource(
+                                          "https://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Kangaroo_MusiQue_-_The_Neverwritten_Role_Playing_Game.mp3"));
+                                    },
                                     child: const Icon(
                                       Icons.ios_share,
                                       color: Color.fromARGB(255, 178, 176, 176),
