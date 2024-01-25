@@ -17,7 +17,6 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen>
     with SingleTickerProviderStateMixin {
-  AudioPlayer? _player;
   @override
   void initState() {
     super.initState();
@@ -25,7 +24,6 @@ class _ProfileScreenState extends State<ProfileScreen>
 
   @override
   void dispose() {
-    _player?.dispose();
     super.dispose();
   }
 
@@ -53,7 +51,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                       builder: (context, state) {
                     if (state is ProfileLoadedState) {
                       return Padding(
-                          padding: EdgeInsets.only(left: 30, top: 30),
+                          padding: const EdgeInsets.only(left: 30, top: 30),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -117,7 +115,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                                       shape: RoundedRectangleBorder(
                                         side: const BorderSide(
                                             width: 1.0,
-                                            color: const Color.fromARGB(
+                                            color: Color.fromARGB(
                                                 255, 178, 176, 176)),
                                         borderRadius: BorderRadius.circular(
                                             40.0), // Customize the border radius
@@ -224,13 +222,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                                     width: 20.0,
                                   ),
                                   GestureDetector(
-                                    onTap: () {
-                                      print('hello');
-                                      _player?.dispose();
-                                      final player = _player = AudioPlayer();
-                                      player.play(UrlSource(
-                                          "https://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Kangaroo_MusiQue_-_The_Neverwritten_Role_Playing_Game.mp3"));
-                                    },
+                                    onTap: () {},
                                     child: const Icon(
                                       Icons.ios_share,
                                       color: Color.fromARGB(255, 178, 176, 176),
@@ -242,7 +234,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                           ));
                     }
 
-                    return Text('djd');
+                    return const Text('djd');
                   }))))
     ]);
   }

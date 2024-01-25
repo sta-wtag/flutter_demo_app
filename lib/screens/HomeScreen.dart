@@ -9,6 +9,7 @@ import 'package:flutter_demo_application/widgets/bottom_navbar.dart';
 import 'package:flutter_demo_application/widgets/homepage_tab_widget.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -19,6 +20,14 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   double _currentSliderValue = 20;
+  AudioPlayer? _player;
+
+  @override
+  void dispose() {
+    _player?.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -208,38 +217,64 @@ class _HomeScreenState extends State<HomeScreen> {
                               scrollDirection: Axis.horizontal,
                               itemCount: state.playlists?.length,
                               itemBuilder: (BuildContext context, int index) =>
-                                  Card(
-                                color: Colors.amberAccent,
-                                elevation: 10.0,
-                                child: Container(
-                                  width: 200,
-                                  height: 50,
-                                  decoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(8)),
-                                    image: DecorationImage(
-                                      image: NetworkImage(
-                                        state.playlists?[index]?.track.album
-                                            .images[0].url,
-                                      ),
-                                      fit: BoxFit.cover,
-                                      alignment: Alignment.topCenter,
-                                    ),
-                                  ),
-                                  child: ListTile(
-                                    title: Text(
-                                      state.recommended?[index].name,
-                                      style:
-                                          TextStyle(color: Colors.amberAccent),
-                                    ),
-                                    subtitle: Text(
-                                      state.playlists?[index].track.type,
-                                      style:
-                                          TextStyle(color: Colors.amberAccent),
-                                    ),
-                                  ),
-                                ),
-                              ),
+                                  GestureDetector(
+                                      onTap: () {
+                                        _player?.dispose();
+                                        final player = _player = AudioPlayer();
+                                        player.play(UrlSource(state
+                                            .playlists?[index]
+                                            ?.track
+                                            .previewUrl));
+                                      },
+                                      child: Card(
+                                        color: Colors.amberAccent,
+                                        elevation: 10.0,
+                                        child: Container(
+                                          width: 200,
+                                          height: 50,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(8)),
+                                            image: DecorationImage(
+                                              image: NetworkImage(
+                                                state.playlists?[index]?.track
+                                                    .album.images[0].url,
+                                              ),
+                                              fit: BoxFit.cover,
+                                              alignment: Alignment.topCenter,
+                                            ),
+                                          ),
+                                          child: Stack(
+                                            children: [
+                                              const Positioned(
+                                                top: 5.0,
+                                                left: 10.0,
+                                                child: Icon(
+                                                  Icons.play_circle,
+                                                  color: Color.fromARGB(
+                                                      255, 227, 10, 10),
+                                                ),
+                                              ),
+                                              ListTile(
+                                                title: Text(
+                                                  state
+                                                      .recommended?[index].name,
+                                                  style: const TextStyle(
+                                                      color:
+                                                          Colors.amberAccent),
+                                                ),
+                                                subtitle: Text(
+                                                  state.playlists?[index].track
+                                                      .type,
+                                                  style: const TextStyle(
+                                                      color:
+                                                          Colors.amberAccent),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      )),
                             ),
                           ),
                         ],
