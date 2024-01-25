@@ -42,7 +42,6 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
           child: BlocBuilder<SearchBloc, SearchState>(
             builder: (context, state) {
-              print(state);
               if (state is SeachPageLoadedState) {
                 return Scaffold(
                   body: NestedScrollView(

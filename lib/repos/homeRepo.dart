@@ -156,6 +156,7 @@ class HomeDataProvider {
 
       if (res.statusCode == 201) {
         var playlist = Playlist.fromJson(jsonDecode(res.body));
+
         var response = await client.post(
             Uri.parse(
                 "${dotenv.env['BASE_URL']}/v1/playlists/${playlist.id}/tracks?uris=${tracksUri.join(',')}"),
@@ -165,8 +166,7 @@ class HomeDataProvider {
               'Authorization': 'Bearer $token',
             });
         var test = await client.get(
-            Uri.parse(
-                "${dotenv.env['BASE_URL']}/v1/playlists/3cEYpjA9oz9GiPac4AsH4n"),
+            Uri.parse("${dotenv.env['BASE_URL']}/v1/playlists/${playlist.id}"),
             headers: {
               'Content-Type': 'application/json',
               'Accept': 'application/json',
@@ -195,7 +195,6 @@ class HomeDataProvider {
         'Accept': 'application/json',
         'Authorization': 'Bearer $token',
       });
-      print(response.body);
       if (response.statusCode == 200) {
         var temp = jsonDecode(response.body);
         return Profile.fromJson(temp);

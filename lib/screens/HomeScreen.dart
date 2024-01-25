@@ -21,6 +21,19 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   double _currentSliderValue = 20;
   AudioPlayer? _player;
+  PlayerState showPlayerController = PlayerState.disposed;
+
+  @override
+  void initState() {
+    super.initState();
+    _player?.onPlayerStateChanged.listen((s) {
+      print(s);
+      setState(() => showPlayerController = s);
+    }, onDone: () {
+      print('done');
+      // setState(() => showPlayerController = false);
+    });
+  }
 
   @override
   void dispose() {
@@ -59,226 +72,276 @@ class _HomeScreenState extends State<HomeScreen> {
                 );
               } else if (state is TabChangedState) {
                 if (state.tab == 'All') {
-                  return Padding(
-                      padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                      child: ListView(
-                        children: [
-                          TabContent(
-                            onTapButton: (tab) {
-                              BlocProvider.of<HomeBloc>(context)
-                                  .add(ChangeTabHomePage(tab));
-                            },
-                          ),
-                          GridView.count(
-                              shrinkWrap: true,
-                              crossAxisCount: 2,
-                              childAspectRatio: 3.0,
-                              mainAxisSpacing: 5.0,
-                              crossAxisSpacing: 5.0,
-                              children: state.myLibraries.map((item) {
-                                return ListTile(
-                                  visualDensity:
-                                      VisualDensity(horizontal: 0, vertical: 1),
-                                  contentPadding: EdgeInsets.all(0),
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(5)),
-                                  tileColor: Color.fromARGB(255, 62, 61, 61),
-                                  leading: Image.network(
-                                    'https://wallpapers.com/images/high/imagine-dragons-2015-tour-poster-mjra28nakm8bz6v8.webp',
-                                    fit: BoxFit.cover,
-                                    // height: 50,
-                                    // width: 60,
-                                  ),
-                                  title: Text(
-                                    item,
-                                    style: const TextStyle(
-                                        color: Colors.white, fontSize: 10),
-                                  ),
-                                );
-                              }).toList()),
-                          const SizedBox(
-                            height: 20.0,
-                          ),
-                          const Text(
-                            'Get Your Top Five Tracks',
-                            style: TextStyle(fontSize: 18.0),
-                          ),
-                          const SizedBox(
-                            height: 20.0,
-                          ),
-                          SizedBox(
-                            height: 200,
-                            child: ListView.builder(
-                              shrinkWrap: true,
-                              scrollDirection: Axis.horizontal,
-                              itemCount: state.topFive?.length,
-                              itemBuilder: (BuildContext context, int index) =>
-                                  Card(
-                                color: Colors.amberAccent,
-                                elevation: 10.0,
-                                child: Container(
-                                  width: 200,
-                                  height: 50,
-                                  decoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(8)),
-                                    image: DecorationImage(
-                                      image: NetworkImage(
-                                        state.topFive?[index]?.album.images[0]
-                                            .url,
-                                      ),
-                                      fit: BoxFit.cover,
-                                      alignment: Alignment.topCenter,
-                                    ),
-                                  ),
-                                  child: ListTile(
-                                    title: Text(
-                                      state.topFive?[index].name,
-                                      style:
-                                          TextStyle(color: Colors.amberAccent),
-                                    ),
-                                    subtitle: Text(
-                                      state.topFive?[index].type,
-                                      style:
-                                          TextStyle(color: Colors.amberAccent),
-                                    ),
-                                  ),
-                                ),
+                  return Stack(
+                    children: [
+                      Padding(
+                          padding:
+                              const EdgeInsets.only(left: 10.0, right: 10.0),
+                          child: ListView(
+                            children: [
+                              TabContent(
+                                onTapButton: (tab) {
+                                  BlocProvider.of<HomeBloc>(context)
+                                      .add(ChangeTabHomePage(tab));
+                                },
                               ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 20.0,
-                          ),
-                          const Text(
-                            'Recommended Tracks',
-                            style: TextStyle(fontSize: 18.0),
-                          ),
-                          const SizedBox(
-                            height: 20.0,
-                          ),
-                          SizedBox(
-                            height: 200,
-                            child: ListView.builder(
-                              shrinkWrap: true,
-                              physics: const ScrollPhysics(),
-                              scrollDirection: Axis.horizontal,
-                              itemCount: state.recommended?.length,
-                              itemBuilder: (BuildContext context, int index) =>
-                                  Card(
-                                color: Colors.amberAccent,
-                                elevation: 10.0,
-                                child: Container(
-                                  width: 200,
-                                  height: 50,
-                                  decoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(8)),
-                                    image: DecorationImage(
-                                      image: NetworkImage(
-                                        state.recommended?[index]?.album
-                                            .images[0].url,
+                              GridView.count(
+                                  shrinkWrap: true,
+                                  crossAxisCount: 2,
+                                  childAspectRatio: 3.0,
+                                  mainAxisSpacing: 5.0,
+                                  crossAxisSpacing: 5.0,
+                                  children: state.myLibraries.map((item) {
+                                    return ListTile(
+                                      visualDensity: VisualDensity(
+                                          horizontal: 0, vertical: 1),
+                                      contentPadding: EdgeInsets.all(0),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(5)),
+                                      tileColor:
+                                          Color.fromARGB(255, 62, 61, 61),
+                                      leading: Image.network(
+                                        'https://wallpapers.com/images/high/imagine-dragons-2015-tour-poster-mjra28nakm8bz6v8.webp',
+                                        fit: BoxFit.cover,
+                                        // height: 50,
+                                        // width: 60,
                                       ),
-                                      fit: BoxFit.cover,
-                                      alignment: Alignment.topCenter,
-                                    ),
-                                  ),
-                                  child: ListTile(
-                                    title: Text(
-                                      state.recommended?[index].name,
-                                      style:
-                                          TextStyle(color: Colors.amberAccent),
-                                    ),
-                                    subtitle: Text(
-                                      state.recommended?[index].type,
-                                      style:
-                                          TextStyle(color: Colors.amberAccent),
-                                    ),
-                                  ),
-                                ),
+                                      title: Text(
+                                        item,
+                                        style: const TextStyle(
+                                            color: Colors.white, fontSize: 10),
+                                      ),
+                                    );
+                                  }).toList()),
+                              const SizedBox(
+                                height: 20.0,
                               ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 20.0,
-                          ),
-                          const Text(
-                            'Top 10 Songs',
-                            style: TextStyle(fontSize: 18.0),
-                          ),
-                          const SizedBox(
-                            height: 20.0,
-                          ),
-                          SizedBox(
-                            height: 200,
-                            child: ListView.builder(
-                              shrinkWrap: true,
-                              physics: const ScrollPhysics(),
-                              scrollDirection: Axis.horizontal,
-                              itemCount: state.playlists?.length,
-                              itemBuilder: (BuildContext context, int index) =>
-                                  GestureDetector(
-                                      onTap: () {
-                                        _player?.dispose();
-                                        final player = _player = AudioPlayer();
-                                        player.play(UrlSource(state
-                                            .playlists?[index]
-                                            ?.track
-                                            .previewUrl));
-                                      },
-                                      child: Card(
-                                        color: Colors.amberAccent,
-                                        elevation: 10.0,
-                                        child: Container(
-                                          width: 200,
-                                          height: 50,
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(8)),
-                                            image: DecorationImage(
-                                              image: NetworkImage(
-                                                state.playlists?[index]?.track
-                                                    .album.images[0].url,
-                                              ),
-                                              fit: BoxFit.cover,
-                                              alignment: Alignment.topCenter,
-                                            ),
+                              const Text(
+                                'Get Your Top Five Tracks',
+                                style: TextStyle(fontSize: 18.0),
+                              ),
+                              const SizedBox(
+                                height: 20.0,
+                              ),
+                              SizedBox(
+                                height: 200,
+                                child: ListView.builder(
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: state.topFive?.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) => Card(
+                                    color: Colors.amberAccent,
+                                    elevation: 10.0,
+                                    child: Container(
+                                      width: 200,
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(8)),
+                                        image: DecorationImage(
+                                          image: NetworkImage(
+                                            state.topFive?[index]?.album
+                                                .images[0].url,
                                           ),
-                                          child: Stack(
-                                            children: [
-                                              const Positioned(
-                                                top: 5.0,
-                                                left: 10.0,
-                                                child: Icon(
-                                                  Icons.play_circle,
-                                                  color: Color.fromARGB(
-                                                      255, 227, 10, 10),
-                                                ),
-                                              ),
-                                              ListTile(
-                                                title: Text(
-                                                  state
-                                                      .recommended?[index].name,
-                                                  style: const TextStyle(
-                                                      color:
-                                                          Colors.amberAccent),
-                                                ),
-                                                subtitle: Text(
-                                                  state.playlists?[index].track
-                                                      .type,
-                                                  style: const TextStyle(
-                                                      color:
-                                                          Colors.amberAccent),
-                                                ),
-                                              )
-                                            ],
-                                          ),
+                                          fit: BoxFit.cover,
+                                          alignment: Alignment.topCenter,
                                         ),
-                                      )),
-                            ),
-                          ),
-                        ],
-                      ));
+                                      ),
+                                      child: ListTile(
+                                        title: Text(
+                                          state.topFive?[index].name,
+                                          style: TextStyle(
+                                              color: Colors.amberAccent),
+                                        ),
+                                        subtitle: Text(
+                                          state.topFive?[index].type,
+                                          style: TextStyle(
+                                              color: Colors.amberAccent),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 20.0,
+                              ),
+                              const Text(
+                                'Recommended Tracks',
+                                style: TextStyle(fontSize: 18.0),
+                              ),
+                              const SizedBox(
+                                height: 20.0,
+                              ),
+                              SizedBox(
+                                height: 200,
+                                child: ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: const ScrollPhysics(),
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: state.recommended?.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) => Card(
+                                    color: Colors.amberAccent,
+                                    elevation: 10.0,
+                                    child: Container(
+                                      width: 200,
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(8)),
+                                        image: DecorationImage(
+                                          image: NetworkImage(
+                                            state.recommended?[index]?.album
+                                                .images[0].url,
+                                          ),
+                                          fit: BoxFit.cover,
+                                          alignment: Alignment.topCenter,
+                                        ),
+                                      ),
+                                      child: ListTile(
+                                        title: Text(
+                                          state.recommended?[index].name,
+                                          style: TextStyle(
+                                              color: Colors.amberAccent),
+                                        ),
+                                        subtitle: Text(
+                                          state.recommended?[index].type,
+                                          style: TextStyle(
+                                              color: Colors.amberAccent),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 20.0,
+                              ),
+                              const Text(
+                                'Top 10 Songs',
+                                style: TextStyle(fontSize: 18.0),
+                              ),
+                              const SizedBox(
+                                height: 20.0,
+                              ),
+                              SizedBox(
+                                height: 200,
+                                child: ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: const ScrollPhysics(),
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: state.playlists?.length,
+                                  itemBuilder: (BuildContext context,
+                                          int index) =>
+                                      GestureDetector(
+                                          onTap: () {
+                                            _player?.dispose();
+                                            final player =
+                                                _player = AudioPlayer();
+                                            player.play(UrlSource(state
+                                                .playlists?[index]
+                                                ?.track
+                                                .previewUrl));
+                                            setState(() {
+                                              // showPlayerController = true;
+                                            });
+                                          },
+                                          child: Card(
+                                            color: Colors.amberAccent,
+                                            elevation: 10.0,
+                                            child: Container(
+                                              width: 200,
+                                              height: 50,
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(8)),
+                                                image: DecorationImage(
+                                                  image: NetworkImage(
+                                                    state
+                                                        .playlists?[index]
+                                                        ?.track
+                                                        .album
+                                                        .images[0]
+                                                        .url,
+                                                  ),
+                                                  fit: BoxFit.cover,
+                                                  alignment:
+                                                      Alignment.topCenter,
+                                                ),
+                                              ),
+                                              child: Stack(
+                                                children: [
+                                                  const Positioned(
+                                                    top: 5.0,
+                                                    left: 10.0,
+                                                    child: Icon(
+                                                      Icons.play_circle,
+                                                      color: Color.fromARGB(
+                                                          255, 227, 10, 10),
+                                                    ),
+                                                  ),
+                                                  ListTile(
+                                                    title: Text(
+                                                      state.recommended?[index]
+                                                          .name,
+                                                      style: const TextStyle(
+                                                          color: Colors
+                                                              .amberAccent),
+                                                    ),
+                                                    subtitle: Text(
+                                                      state.playlists?[index]
+                                                          .track.type,
+                                                      style: const TextStyle(
+                                                          color: Colors
+                                                              .amberAccent),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          )),
+                                ),
+                              ),
+                            ],
+                          )),
+                      showPlayerController == PlayerState.playing
+                          ? Positioned(
+                              bottom: 90.0,
+                              left: 20.0,
+                              right: 20.0,
+                              child: Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  height: 65,
+                                  decoration: BoxDecoration(
+                                      color: Color.fromARGB(255, 136, 58, 9),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(8.0))),
+                                  child: Padding(
+                                      padding: EdgeInsets.only(
+                                          left: 10.0, right: 10.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text("Playing"),
+                                          Icon(
+                                            Icons.play_arrow,
+                                            color: Colors.white,
+                                            size: 30.0,
+                                          ),
+                                          // Icon(
+                                          //   Icons.pause,
+                                          //   color: Colors.white,
+                                          //   size: 30.0,
+                                          // )
+                                        ],
+                                      ))))
+                          : Text('test')
+                    ],
+                  );
                 } else if (state.tab == 'Music') {
                   return Padding(
                       padding: const EdgeInsets.only(
