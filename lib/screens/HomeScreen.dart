@@ -20,13 +20,14 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   double _currentSliderValue = 20;
-  AudioPlayer? _player;
+  final audioPlayer = AudioPlayer();
+
   PlayerState showPlayerController = PlayerState.disposed;
 
   @override
   void initState() {
     super.initState();
-    _player?.onPlayerStateChanged.listen((s) {
+    audioPlayer.onPlayerStateChanged.listen((s) {
       print(s);
       setState(() => showPlayerController = s);
     }, onDone: () {
@@ -37,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void dispose() {
-    _player?.dispose();
+    audioPlayer.dispose();
     super.dispose();
   }
 
@@ -238,13 +239,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                           int index) =>
                                       GestureDetector(
                                           onTap: () {
-                                            _player?.dispose();
-                                            final player =
-                                                _player = AudioPlayer();
-                                            player.play(UrlSource(state
+                                            // audioPlayer.dispose();
+                                            // final player =
+                                            //     audioPlayer = AudioPlayer();
+                                            audioPlayer.play(UrlSource(state
                                                 .playlists?[index]
                                                 ?.track
-                                                .previewUrl));
+                                                ?.previewUrl));
                                             setState(() {
                                               // showPlayerController = true;
                                             });
@@ -285,7 +286,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   ),
                                                   ListTile(
                                                     title: Text(
-                                                      state.recommended?[index]
+                                                      state
+                                                          .playlists?[index]
+                                                          .track
+                                                          .artists[0]
                                                           .name,
                                                       style: const TextStyle(
                                                           color: Colors
@@ -307,7 +311,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ],
                           )),
-                      showPlayerController == PlayerState.playing
+                      showPlayerController == PlayerState.playing ||
+                              showPlayerController == PlayerState.paused
                           ? Positioned(
                               bottom: 90.0,
                               left: 20.0,
@@ -327,11 +332,22 @@ class _HomeScreenState extends State<HomeScreen> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text("Playing"),
-                                          Icon(
-                                            Icons.play_arrow,
-                                            color: Colors.white,
-                                            size: 30.0,
-                                          ),
+                                          showPlayerController ==
+                                                  PlayerState.playing
+                                              ? IconButton(
+                                                  onPressed: () {
+                                                    audioPlayer.pause();
+                                                  },
+                                                  icon: Icon(
+                                                    Icons.pause,
+                                                    color: Colors.white,
+                                                    size: 30.0,
+                                                  ))
+                                              : Icon(
+                                                  Icons.play_arrow,
+                                                  color: Colors.white,
+                                                  size: 30.0,
+                                                ),
                                           // Icon(
                                           //   Icons.pause,
                                           //   color: Colors.white,
